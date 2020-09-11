@@ -2,6 +2,7 @@ package rest
 
 import (
 	"fmt"
+	"github.com/saltbo/zpan/model"
 	"log"
 	"path/filepath"
 	"strings"
@@ -63,12 +64,21 @@ func (rs *FileResource) findAll(c *gin.Context) {
 		return
 	}
 
-	// inject the url for the public object
 	for idx := range list {
+		// inject the url for the public object
 		list[idx].SetURL(rs.provider.PublicURL)
+		// calculate the dir file num
+		if list[idx].IsDir() {
+			num := service.MatterDirFileNum(list[idx].Uid, list[idx].Name)
+			list[idx].SetFileNum(num)
+		}
 	}
 
-	ginutil.JSONList(c, list, total)
+	ginutil.JSONData(c, gin.H{
+		"list": list,
+		"total": total,
+		"maxDirFileNum": model.DirFileMaxNum,
+	})
 }
 
 func (rs *FileResource) create(c *gin.Context) {
