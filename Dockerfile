@@ -7,7 +7,7 @@ RUN echo \
     > /etc/apt/sources.list
 
 RUN apt-get update \
-    && apt-get install -y ca-certificates telnet procps curl
+    && apt-get install --fix-missing -y ca-certificates telnet procps curl
 
 ENV APP_HOME /zpan
 WORKDIR $APP_HOME
