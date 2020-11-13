@@ -20,6 +20,7 @@ type Config struct {
 	Provider   provider.Config
 	Server     Server
 	TLS        TLS
+	Aria2		Aria2
 }
 
 type Server struct {
@@ -34,6 +35,10 @@ type TLS struct {
 	CacheDir    string
 	CertPath    string
 	CertkeyPath string
+}
+
+type Aria2 struct {
+	RPCSecret string
 }
 
 func (c *Config) EmailAct() bool {

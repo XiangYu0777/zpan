@@ -31,3 +31,6 @@ provider:
 #  sender: no-reply@saltbo.fun
 #  username: Zpan
 #  password: mGxxxxxxxxxxh9
+
+aria2:
+  RPCSecret: zpan

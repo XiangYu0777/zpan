@@ -18,5 +18,6 @@ require (
 	github.com/spf13/viper v1.7.1
 	github.com/storyicon/grbac v0.0.0-20200224041032-a0461737df7e
 	github.com/stretchr/testify v1.6.1
+	github.com/zyxar/argo v0.0.0-20201013023636-7eb154dcb009
 	golang.org/x/crypto v0.0.0-20191205180655-e7c4368fe9dd
 )
