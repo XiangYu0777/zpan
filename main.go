@@ -21,7 +21,12 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/saltbo/zpan/cmd"
+import (
+	"github.com/saltbo/zpan/cmd"
+	"github.com/zyxar/argo/rpc"
+)
+
+var Aria2Client rpc.Protocol
 
 func main() {
 	cmd.Execute()

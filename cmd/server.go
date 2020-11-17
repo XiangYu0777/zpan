@@ -23,17 +23,17 @@ package cmd
 
 import (
 	"fmt"
-	"log"
-	"net/http"
-	"os"
-
 	"github.com/gin-gonic/gin"
 	"github.com/saltbo/gopkg/ginutil"
 	"github.com/saltbo/gopkg/gormutil"
 	"github.com/saltbo/gopkg/httputil"
 	"github.com/saltbo/moreu/moreu"
+	"github.com/saltbo/zpan/util"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/acme/autocert"
+	"log"
+	"net/http"
+	"os"
 
 	"github.com/saltbo/zpan/assets"
 	"github.com/saltbo/zpan/config"
@@ -94,6 +94,8 @@ func serverRun(conf *config.Config) {
 		//go startTls(ge, tlsAddr, conf.TLS.Auto, conf.TLS.CacheDir, conf.Server.Domain, conf.TLS.CertPath, conf.TLS.CertkeyPath)
 		go startTls(ge, conf)
 	}
+
+	go util.StartAria2Rpc(conf)
 
 	addr := fmt.Sprintf(":%d", conf.Server.Port)
 	ginutil.Startup(ge, addr)

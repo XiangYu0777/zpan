@@ -2,6 +2,7 @@ package rest
 
 import (
 	"fmt"
+	"github.com/saltbo/zpan/util"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -30,7 +31,9 @@ func NewFileResource(conf provider.Config) ginutil.Resource {
 
 func (rs *FileResource) Register(router *gin.RouterGroup) {
 	router.POST("/files", rs.create)
+	router.POST("/remote", rs.remote)
 	router.GET("/files", rs.findAll)
+	//router.GET("/remote/:url", rs.remote)
 	router.GET("/files/:alias", rs.find)
 	router.PATCH("/files/:alias/uploaded", rs.uploaded)
 	router.PATCH("/files/:alias/name", rs.rename)
@@ -114,6 +117,31 @@ func (rs *FileResource) find(c *gin.Context) {
 
 	ginutil.JSONData(c, gin.H{
 		"link": link,
+	})
+}
+
+func (rs *FileResource) remote(c *gin.Context) {
+	p := new(bind.BodyFile)
+	if err := c.ShouldBindJSON(p); err != nil {
+		ginutil.JSONBadRequest(c, err)
+		return
+	}
+
+	var uris []string
+	uris = append(uris, "https://www.baidu.com")
+
+	var gid, err = util.Aria2Client.AddURI(uris)
+	println(util.Aria2Client)
+
+	//println(gid, err)
+	log.Print(gid)
+	if err != nil {
+		ginutil.JSONServerError(c, err)
+		return
+	}
+
+	ginutil.JSONData(c, gin.H{
+		"gid": gid,
 	})
 }
 

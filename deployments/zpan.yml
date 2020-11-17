@@ -34,3 +34,4 @@ provider:
 
 aria2:
   RPCSecret: zpan
+  Port: 6800

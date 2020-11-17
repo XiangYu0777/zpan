@@ -39,6 +39,7 @@ type TLS struct {
 
 type Aria2 struct {
 	RPCSecret string
+	Port int
 }
 
 func (c *Config) EmailAct() bool {
